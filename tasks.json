@@ -2,7 +2,7 @@
     {
         "id": 1,
         "task_no": 1,
-        "description": "Write python",
+        "description": "This is the new description for a task",
         "due_date": "2025-02-18",
         "status": "pending"
     },

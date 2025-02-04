@@ -34,7 +34,21 @@ def add_task(description, due_date):
     print(f"Task '{description}' added successfully!")
 
 
-def update_task():
+def update_task(task_id, desc=None, due_date=None):
+    print('desc, due_date>>>>>>>>', desc, due_date)
+    tasks = load_tasks()
+    item = next((task for task in tasks if task["id"] == int(task_id)), None)
+    if item == None:
+        print('Item with id ' + task_id + ' does not exist')
+    else:
+     updated_task = {
+        **item,  # Spread old properties
+        "description": desc.strip() if desc else item["description"],
+        "due_date": due_date.strip() if due_date else item["due_date"],
+    }
+     print('updated_task>>>>>>>>', updated_task)
+     tasks = [updated_task if task["id"] == int(task_id) else task for task in tasks]
+     save_tasks(tasks) 
     print('Update Existing task prompt')
 
 def get_task():
@@ -47,9 +61,7 @@ def get_task():
 
 
 def delete_task(task_id):
-    print('Delete task prompt', type(int(task_id)))
     tasks = load_tasks()
-    print('tasks>>>>',tasks)
     item = next((task for task in tasks if task["id"] == int(task_id)), None)
     if item == None:
         print('Item with id ' + task_id + ' does not exist')

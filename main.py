@@ -35,7 +35,17 @@ def main():
             delete_task(task_id)
             success_info()
         elif choice == '4':
-            update_task()
+            desc = None
+            due_date = None
+            task_id =  input('Which task you want to update? ')
+            opt =  input('What do you want to update?  1: Description' '\n' '2: Due Date ')
+            if opt == '1':
+             desc = input('Write your description: ')
+            elif opt == '2':
+             due_date = input('Update due date: ')
+            else:
+                return
+            update_task(task_id, desc, due_date)
             success_info()
         elif choice == '5':
             break
