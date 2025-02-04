@@ -11,7 +11,7 @@ def load_tasks():
             try:
                 return json.load(file)
             except json.JSONDecodeError:
-                return []  # Return an empty list if file is empty
+                return [] 
     return []
 
 
@@ -38,8 +38,22 @@ def update_task():
     print('Update Existing task prompt')
 
 def get_task():
-    print('Get all task prompt')
+    tasks = load_tasks()
+    if len(tasks) == 0:
+        print('No tasks to show. Add some new tasks')
+    else:
+     for task in tasks:
+        print('\n', task)
 
 
-def delete_task():
-    print('Delete task prompt')
+def delete_task(task_id):
+    print('Delete task prompt', type(int(task_id)))
+    tasks = load_tasks()
+    print('tasks>>>>',tasks)
+    item = next((task for task in tasks if task["id"] == int(task_id)), None)
+    if item == None:
+        print('Item with id ' + task_id + ' does not exist')
+    else:
+     tasks.remove(item)
+     save_tasks(tasks) 
+    print('tasks>>>>',tasks)

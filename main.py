@@ -31,7 +31,8 @@ def main():
             get_task()
             success_info()
         elif choice == '3':
-            delete_task()
+            task_id = input('Which task you want to delete, provide its ID: ')
+            delete_task(task_id)
             success_info()
         elif choice == '4':
             update_task()
