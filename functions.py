@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime
 
 TASKS_FILE = "tasks.json"
 
@@ -22,31 +23,40 @@ def save_tasks(tasks):
 
 def add_task(description, due_date):
     tasks = load_tasks()
-    task = {
-        "id": len(tasks) + 1,  # Auto-incrementing ID
-        "task_no": len(tasks) + 1,  # Same as ID for now
-        "description": description.strip(),
-        "due_date": due_date.strip(),
-        "status": "pending"  # Default status
-    }
-    tasks.append(task)
-    save_tasks(tasks) 
-    print(f"Task '{description}' added successfully!")
+    
+    try:
+        # Validate if the due_date matches the correct format
+        formatted_date = datetime.strptime(due_date, "%d-%m-%Y")     
+        print('formatted_date>>>>',formatted_date)   
+        # If parsing is successful, add the task
+        task = {
+            "id": len(tasks) + 1,
+            "task_no": len(tasks) + 1,
+            "description": description.strip(),
+            "due_date": formatted_date.strftime("%d-%m-%Y"),
+            "status": "pending"
+        }
+        tasks.append(task)
+        save_tasks(tasks) 
+        print(f"✅ Task '{description}' added successfully!")
+        return True
+
+    except ValueError:
+        print("❌ Error: Incorrect date format! Please enter the date in DD-MM-YYYY format.")
+        return False
 
 
 def update_task(task_id, desc=None, due_date=None):
-    print('desc, due_date>>>>>>>>', desc, due_date)
     tasks = load_tasks()
     item = next((task for task in tasks if task["id"] == int(task_id)), None)
     if item == None:
         print('Item with id ' + task_id + ' does not exist')
     else:
      updated_task = {
-        **item,  # Spread old properties
+        **item,
         "description": desc.strip() if desc else item["description"],
         "due_date": due_date.strip() if due_date else item["due_date"],
     }
-     print('updated_task>>>>>>>>', updated_task)
      tasks = [updated_task if task["id"] == int(task_id) else task for task in tasks]
      save_tasks(tasks) 
     print('Update Existing task prompt')
@@ -68,4 +78,3 @@ def delete_task(task_id):
     else:
      tasks.remove(item)
      save_tasks(tasks) 
-    print('tasks>>>>',tasks)

@@ -25,8 +25,8 @@ def main():
         if choice == '1':
             task = input('Write your task: ')
             due_date = input('Enter due date: ')
-            add_task(task,due_date)
-            success_info()
+            if add_task(task,due_date):
+             success_info()
         elif choice == '2':
             get_task()
             success_info()
@@ -49,7 +49,7 @@ def main():
             success_info()
         elif choice == '5':
             break
-        elif choice.lower() == '0':  # If the user wants to see the menu again
+        elif choice.lower() == '0':
             show_menu()
         else:
              print("Invalid choice. Please enter a number between 1 and 4.")

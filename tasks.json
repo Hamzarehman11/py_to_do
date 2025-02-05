@@ -2,15 +2,8 @@
     {
         "id": 1,
         "task_no": 1,
-        "description": "This is the new description for a task",
-        "due_date": "2025-02-18",
-        "status": "pending"
-    },
-    {
-        "id": 3,
-        "task_no": 3,
-        "description": "To complete the advanced databases courses",
-        "due_date": "2025-12-07",
+        "description": "this is the new task",
+        "due_date": "12-12-2025",
         "status": "pending"
     }
 ]
